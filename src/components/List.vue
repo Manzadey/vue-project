@@ -7,12 +7,24 @@ export default {
     }
   },
 
+  data() {
+    return {
+      postExists: false,
+    }
+  },
+
   methods: {
     deletePost(id) {
       this.$emit('delete', id);
     },
     deletePosts() {
       this.$emit('deleteAll');
+    }
+  },
+
+  computed: {
+    postExists() {
+      return this.posts.length > 0;
     }
   }
 }
@@ -22,10 +34,10 @@ export default {
   <div>
     <div class="d-flex justify-content-between">
       <h2>List:</h2>
-      <button class="btn btn-danger btn-sm" @click.prevent="deletePosts">Delete all</button>
+      <button class="btn btn-danger btn-sm" @click.prevent="deletePosts" v-if="postExists">Delete all</button>
     </div>
     <div class="mt-3">
-      <ul class="list-group" v-if="posts.length > 0">
+      <ul class="list-group" v-if="postExists">
         <li class="list-group-item" v-for="post in posts">
           <div class="d-flex justify-content-between">
             <div>
