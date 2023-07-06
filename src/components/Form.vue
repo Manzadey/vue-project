@@ -13,6 +13,10 @@
     },
     methods: {
       addPost() {
+        if (this.form.title.length === 0) {
+          return false;
+        }
+
         this.form.id = Date.now();
         this.$emit('create', this.form);
         this.form = {
