@@ -14,12 +14,14 @@
     methods: {
       addPost() {
         if (this.form.title.length === 0) {
+          this.$emit('error', 'Title is empty!');
+
           return false;
         }
 
         this.form.id = Date.now();
         this.form.date = Date.now();
-        this.$emit('create', this.form);
+        this.$emit('create', this.form, `"${this.form.title}" success added!`);
         this.form = {
           title: '',
           body: '',

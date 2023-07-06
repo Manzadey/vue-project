@@ -16,7 +16,7 @@
 </script>
 
 <template>
-  <div class="mt-5">
+  <div>
     <h2>List posts:</h2>
     <div class="mt-3">
       <ul class="list-group" v-if="posts.length > 0">
