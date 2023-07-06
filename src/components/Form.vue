@@ -18,6 +18,7 @@
         }
 
         this.form.id = Date.now();
+        this.form.date = Date.now();
         this.$emit('create', this.form);
         this.form = {
           title: '',

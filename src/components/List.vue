@@ -25,7 +25,8 @@
             <div>
               <strong>{{ post.title }}<span v-if="post.body.length > 0">:</span></strong> {{ post.body }}
             </div>
-            <div>
+            <div class="d-flex align-items-center small text-secondary gap-3">
+              <span v-if="post.date">{{ post.date }}</span>
               <button class="btn btn-danger btn-sm" @click.prevent="deletePost(post.id)">Delete</button>
             </div>
           </div>
