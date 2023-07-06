@@ -23,7 +23,7 @@
         <li class="list-group-item" v-for="post in posts">
           <div class="d-flex justify-content-between">
             <div>
-              <strong>{{ post.title }}:</strong> {{ post.body }}
+              <strong>{{ post.title }}<span v-if="post.body.length > 0">:</span></strong> {{ post.body }}
             </div>
             <div>
               <button class="btn btn-danger btn-sm" @click.prevent="deletePost(post.id)">Delete</button>
