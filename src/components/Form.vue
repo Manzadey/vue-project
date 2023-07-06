@@ -23,6 +23,8 @@
           title: '',
           body: '',
         };
+
+        return true;
       }
     }
   }
