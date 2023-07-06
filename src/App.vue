@@ -19,7 +19,7 @@ export default defineComponent({
     createPost(post) {
       this.posts.push(post);
 
-      localStorage.setItem(storageName, JSON.stringify(this.posts));
+      this.updateStoragePosts();
     },
 
     getPosts() {
@@ -30,6 +30,16 @@ export default defineComponent({
       }
 
       return JSON.parse(storage);
+    },
+
+    updateStoragePosts() {
+      localStorage.setItem(storageName, JSON.stringify(this.posts));
+    },
+
+    deletePost(id) {
+      this.posts = this.posts.filter(post => post.id !== id);
+
+      this.updateStoragePosts();
     }
   }
 })
@@ -42,7 +52,7 @@ export default defineComponent({
     </div>
     <div class="form">
       <Form @create="createPost"/>
-      <List :posts="posts"/>
+      <List :posts="posts" @delete="deletePost"/>
     </div>
   </section>
 </template>

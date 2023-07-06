@@ -6,6 +6,12 @@
         default: []
       }
     },
+
+    methods: {
+      deletePost(id) {
+        this.$emit('delete', id);
+      }
+    }
   }
 </script>
 
@@ -14,7 +20,16 @@
     <h2>List posts:</h2>
     <div class="mt-3">
       <ul class="list-group" v-if="posts.length > 0">
-        <li class="list-group-item" v-for="post in posts"><strong>{{ post.title }}:</strong> {{ post.body }} </li>
+        <li class="list-group-item" v-for="post in posts">
+          <div class="d-flex justify-content-between">
+            <div>
+              <strong>{{ post.title }}:</strong> {{ post.body }}
+            </div>
+            <div>
+              <button class="btn btn-danger btn-sm" @click.prevent="deletePost(post.id)">Delete</button>
+            </div>
+          </div>
+        </li>
       </ul>
       <div class="alert alert-danger" role="alert" v-else>
         Posts list is empty!
