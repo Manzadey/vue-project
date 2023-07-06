@@ -67,6 +67,12 @@ export default defineComponent({
 
     closeAlert(id) {
       this.messages = this.messages.filter(message => message.id !== id);
+    },
+
+    deletePosts() {
+      this.posts = [];
+
+      this.updateStoragePosts();
     }
   }
 })
@@ -85,7 +91,7 @@ export default defineComponent({
         <Alert v-for="message in messages" :key="message.id" v-if="messages.length > 0" :message="message.text" :type="message.type" :id="message.id" @close="closeAlert"/>
       </div>
 
-      <List :posts="posts" @delete="deletePost"/>
+      <List :posts="posts" @delete="deletePost" @deleteAll="deletePosts"/>
     </div>
   </section>
 </template>

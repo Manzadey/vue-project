@@ -1,23 +1,29 @@
 <script>
-  export default {
-    props: {
-      posts: {
-        type: Array,
-        default: []
-      }
-    },
+export default {
+  props: {
+    posts: {
+      type: Array,
+      default: []
+    }
+  },
 
-    methods: {
-      deletePost(id) {
-        this.$emit('delete', id);
-      }
+  methods: {
+    deletePost(id) {
+      this.$emit('delete', id);
+    },
+    deletePosts() {
+      this.$emit('deleteAll');
     }
   }
+}
 </script>
 
 <template>
   <div>
-    <h2>List posts:</h2>
+    <div class="d-flex justify-content-between">
+      <h2>List:</h2>
+      <button class="btn btn-danger btn-sm" @click.prevent="deletePosts">Delete all</button>
+    </div>
     <div class="mt-3">
       <ul class="list-group" v-if="posts.length > 0">
         <li class="list-group-item" v-for="post in posts">
