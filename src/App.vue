@@ -17,7 +17,7 @@ export default defineComponent({
 
   methods: {
     createPost(post) {
-      this.posts.push(post);
+      this.posts.unshift(post);
 
       this.updateStoragePosts();
     },
@@ -46,7 +46,7 @@ export default defineComponent({
 </script>
 
 <template>
-  <section class="container pt-5">
+  <section class="container py-5">
     <div class="pb-3">
       <h1>List Posts</h1>
     </div>
