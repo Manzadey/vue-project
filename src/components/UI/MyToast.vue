@@ -31,7 +31,7 @@ export default {
 </script>
 
 <template>
-  <div class="toast show" :id="'toast-' + timestamp" role="alert" aria-live="assertive" aria-atomic="true">
+  <div class="toast fade show" :id="'toast-' + timestamp" role="alert" aria-live="assertive" aria-atomic="true">
     <div class="toast-header">
       <strong class="me-auto">{{ title }}</strong>
       <small>{{ fromNow }}</small>
