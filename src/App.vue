@@ -3,22 +3,18 @@
 import {defineComponent} from "vue";
 import Form from "@/components/Form.vue";
 import List from "@/components/List.vue";
-import Alert from "@/components/UI/Alert.vue";
+import MyToast from "@/components/UI/MyToast.vue";
 
 const storageName = 'vue-posts';
 
 export default defineComponent({
-  components: {Alert, List, Form},
+  components: {MyToast, List, Form},
 
   data() {
     return {
       posts: this.getPosts(),
-      message: {
-        text: '',
-        type: null
-      },
-
       messages: [],
+      toasts: [],
     }
   },
 
@@ -26,7 +22,7 @@ export default defineComponent({
     createPost(post, message) {
       this.posts.unshift(post);
 
-      this.addMessage(message);
+      this.addToast('Post created!', message);
 
       this.updateStoragePosts();
     },
@@ -73,6 +69,16 @@ export default defineComponent({
       this.posts = [];
 
       this.updateStoragePosts();
+    },
+
+    addToast(title, body) {
+      this.toasts.push({
+        title: title,
+        body: body,
+        timestamp: Date.now()
+      });
+
+      console.log(this.toasts)
     }
   }
 })
@@ -88,10 +94,14 @@ export default defineComponent({
       <Form @create="createPost" @error="checkError"/>
 
       <div class="my-4">
-        <Alert v-for="message in messages" :key="message.id" v-if="messages.length > 0" :message="message.text" :type="message.type" :id="message.id" @close="closeAlert"/>
+        <my-alert v-for="message in messages" :key="message.id" v-if="messages.length > 0" :message="message.text" :type="message.type" :id="message.id" @close="closeAlert"/>
       </div>
 
       <List :posts="posts" @delete="deletePost" @deleteAll="deletePosts"/>
+
+      <div class="toast-container position-fixed start-0 bottom-0 p-3">
+        <my-toast v-for="toast in toasts" :body="toast.body" :title="toast.title" :timestamp="toast.timestamp" :key="toast.timestamp"/>
+      </div>
     </div>
   </section>
 </template>
