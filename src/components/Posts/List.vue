@@ -8,6 +8,10 @@ export default {
     posts: {
       type: Array,
       default: []
+    },
+    title: {
+      type: String,
+      required: true,
     }
   },
 
@@ -16,12 +20,6 @@ export default {
     'deleteAll',
     'closed',
   ],
-
-  data() {
-    return {
-      postExists: false,
-    }
-  },
 
   methods: {
     deletePost(id) {
@@ -47,7 +45,7 @@ export default {
 <template>
   <div>
     <div class="d-flex justify-content-between">
-      <h2>List:</h2>
+      <h2>{{ title }}</h2>
       <button
           class="btn btn-danger btn-sm"
           @click.prevent="deletePosts"
@@ -71,7 +69,7 @@ export default {
         />
       </ul>
       <my-alert
-          message="dsadsa"
+          message="List is empty!"
           type="alert-danger"
           :is-closest="false"
           v-else

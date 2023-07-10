@@ -94,6 +94,12 @@ export default defineComponent({
 
       this.updateStoragePosts();
     }
+  },
+
+  computed: {
+    closestPosts: function () {
+      return this.posts.filter(post => typeof post.date_closed === 'number');
+    }
   }
 })
 </script>
@@ -120,7 +126,17 @@ export default defineComponent({
       </div>
 
       <List
+          title="List of posts:"
           :posts="posts"
+          @delete="deletePost"
+          @deleteAll="deletePosts"
+          @closed="closePost"
+      />
+
+      <List
+          class="mt-5"
+          title="Closest posts:"
+          :posts="closestPosts"
           @delete="deletePost"
           @deleteAll="deletePosts"
           @closed="closePost"
