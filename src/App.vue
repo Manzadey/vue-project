@@ -134,6 +134,7 @@ export default defineComponent({
       />
 
       <List
+          v-if="closestPosts.length"
           class="mt-5"
           title="Closest posts:"
           :posts="closestPosts"
