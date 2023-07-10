@@ -1,8 +1,8 @@
 <script>
 
 import {defineComponent} from "vue";
-import Form from "@/components/Form.vue";
-import List from "@/components/List.vue";
+import Form from "@/components/Posts/Form.vue";
+import List from "@/components/Posts/List.vue";
 import MyToast from "@/components/UI/MyToast.vue";
 
 const storageName = 'vue-posts';
@@ -44,6 +44,8 @@ export default defineComponent({
     deletePost(id) {
       this.posts = this.posts.filter(post => post.id !== id);
 
+      console.log(this.posts)
+
       this.addMessage('Post deleted!', 'alert-warning');
 
       this.updateStoragePosts();
@@ -77,8 +79,22 @@ export default defineComponent({
         body: body,
         timestamp: Date.now()
       });
+    },
 
-      console.log(this.toasts)
+    closePost(id, isClosed, date) {
+      this.posts = this.getPosts().map(post => {
+        if (post.id === id) {
+          if (isClosed) {
+            post['date_closed'] = date;
+          } else {
+            delete post['date_closed'];
+          }
+        }
+
+        return post;
+      });
+
+      this.updateStoragePosts();
     }
   }
 })
@@ -94,10 +110,23 @@ export default defineComponent({
       <Form @create="createPost" @error="checkError"/>
 
       <div class="my-4">
-        <my-alert v-for="message in messages" :key="message.id" v-if="messages.length > 0" :message="message.text" :type="message.type" :id="message.id" @close="closeAlert"/>
+        <my-alert
+            v-if="messages.length > 0"
+            v-for="message in messages"
+            :key="message.id"
+            :message="message.text"
+            :type="message.type"
+            :id="message.id"
+            @close="closeAlert"
+        />
       </div>
 
-      <List :posts="posts" @delete="deletePost" @deleteAll="deletePosts"/>
+      <List
+          :posts="posts"
+          @delete="deletePost"
+          @deleteAll="deletePosts"
+          @closed="closePost"
+      />
 
       <div class="toast-container position-fixed start-0 bottom-0 p-3">
         <my-toast v-for="toast in toasts" :body="toast.body" :title="toast.title" :timestamp="toast.timestamp" :key="toast.timestamp"/>
