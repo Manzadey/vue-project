@@ -44,8 +44,6 @@ export default defineComponent({
     deletePost(id) {
       this.posts = this.posts.filter(post => post.id !== id);
 
-      console.log(this.posts)
-
       this.addMessage('Post deleted!', 'alert-warning');
 
       this.updateStoragePosts();
