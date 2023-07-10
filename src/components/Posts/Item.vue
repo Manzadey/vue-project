@@ -25,10 +25,6 @@ export default {
       type: Number,
       required: true
     },
-    closed: {
-      type: Boolean,
-      default: false,
-    }
   },
 
   data() {
