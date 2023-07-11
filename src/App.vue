@@ -99,6 +99,10 @@ export default defineComponent({
   computed: {
     closestPosts: function () {
       return this.posts.filter(post => typeof post.date_closed === 'number');
+    },
+
+    activePosts: function () {
+      return this.posts.filter(post => typeof post.date_closed !== 'number');
     }
   }
 })
@@ -127,7 +131,7 @@ export default defineComponent({
 
       <List
           title="List of posts:"
-          :posts="posts"
+          :posts="activePosts"
           @delete="deletePost"
           @deleteAll="deletePosts"
           @closed="closePost"
