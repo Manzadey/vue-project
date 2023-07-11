@@ -39,6 +39,14 @@ export default {
 
     checkClosed() {
       this.$emit('closed', this.id, this.closed, Date.now());
+    },
+
+    dateFormat(date) {
+      return this.$dayjs(date).format('D MMMM YYYY HH:mm');
+    },
+
+    dateFromNow(date) {
+      return this.$dayjs(date).fromNow();
     }
   },
 
@@ -54,12 +62,22 @@ export default {
 </script>
 
 <template>
-  <li :class="listItemClassObject">
+  <li
+      :class="listItemClassObject"
+  >
     <div class="d-flex justify-content-between align-items-center">
       <div class="d-flex align-items-center">
         <div class="form-check m-0">
-          <input class="form-check-input" type="checkbox" :id="id + '-success'" v-model="closed" @change="checkClosed">
-          <label class="form-check-label" :for="id + '-success'">
+          <input
+              class="form-check-input"
+              type="checkbox"
+              :id="id + '-success'"
+              v-model="closed"
+              @change="checkClosed"
+          >
+          <label
+              class="form-check-label"
+              :for="id + '-success'">
           </label>
         </div>
 
@@ -68,9 +86,22 @@ export default {
         </div>
       </div>
       <div class="d-flex align-items-center small text-secondary gap-3">
-        <span v-if="date_closed" class="badge bg-secondary rounded-pill">{{ $dayjs(date_closed).format('D MMMM YYYY HH:mm') }}</span>
-        <span v-if="date" class="badge bg-primary rounded-pill">{{ $dayjs(date).format('D MMMM YYYY HH:mm') }}</span>
-        <button class="btn btn-danger btn-sm" @click.prevent="deletePost(id)">Delete</button>
+        <span
+            class="badge bg-secondary rounded-pill"
+            v-if="date_closed"
+            :title="dateFromNow(date_closed)"
+        >{{ dateFormat(date_closed) }}</span>
+        <span
+            class="badge bg-primary rounded-pill"
+            v-if="date"
+            :title="dateFromNow(date)"
+            data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="Disabled popover"
+        >{{ dateFormat(date) }}</span>
+        <button
+            class="btn btn-danger btn-sm"
+            @click.prevent="deletePost(id)"
+        >Delete
+        </button>
       </div>
     </div>
   </li>
